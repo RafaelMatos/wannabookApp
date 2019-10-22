@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<title>WannaBook - {% block title %}{% endblock title %}</title>
+<meta charset="UTF-8">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<style>
+body {font-family: "Raleway", Arial, sans-serif}
+.w3-row img {margin-bottom: -8px}
+</style>
+<body>
+    <div class=" w3-content" style="max-width:1500px">
+
+
+        <!-- Navbar (sit on top) -->
+    <div class="navbar w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+          <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-wide">WannaBook</a>
+          <!-- Right-sided navbar links -->
+          {% if user.is_authenticated %}
+            <div class="w3-right w3-hide-small">
+              <a href="#about" class="w3-bar-item w3-button">Hi,{{user.username}}</a>
+              <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PERFIL</a>
+              <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> BOOKS</a>
+              <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> MESSAGES</a>
+              <a href="{% url 'logout'%}" class="w3-bar-item w3-button"><i class="fa fa-close"></i> LOG OUT</a>
+            </div>
+          {% else %}
+            <div class="w3-right w3-hide-small">
+              <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+              <a href="{% url 'login' %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOG IN</a>
+              <a href="{% url 'signup' %}" class="w3-bar-item w3-button"><i class="glyphicon glyphicon-file"></i> SING UP</a>
+            </div>
+          {% endif %}
+          
+          <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+      
+          <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Sidebar on small screens when clicking the menu icon -->
+      <nav class="navbar w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-hover-teal w3-button w3-large w3-padding-16">Close ×</a>
+        {% if user.is_authenticated %}
+          <a href="#about" onclick="w3_close()" class="w3-bar-item w3-hover-teal w3-button">Hi,{{user.username}}</a>
+          <a href="#team" onclick="w3_close()" class="w3-bar-item w3-hover-teal w3-button"><i class="fa fa-user"></i> PERFIL</a>
+          <a href="#work" onclick="w3_close()" class="w3-bar-item w3-hover-teal w3-button"><i class="fa fa-th"></i> BOOKS</a>
+          <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-hover-teal w3-button"><i class="fa fa-envelope"></i> MESSAGES</a>
+          <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-hover-deep-orange w3-button"><i class="fa fa-close"></i> LOG OUT</a>
+        {% else %}
+          <a href="#about" onclick="w3_close()" class="w3-bar-item w3-hover-teal w3-hover-teal w3-button">ABOUT</a>
+          <a href="{% url 'login'%}" onclick="w3_close()" class="w3-bar-item w3-hover-teal w3-button"><i class="fa fa-user"></i> LOG IN</a>
+          <a href="{% url 'signup'%}" onclick="w3_close()" class="w3-bar-item w3-hover-teal w3-button"><i class="glyphicon glyphicon-file"></i> SING UP</a>
+        {% endif %}
+        
+      </nav>
+      <!-- End Nav -->
+
+      
+    <div class="container">
+        {% block content %}{% endblock content %}
+    </div>
+    
+     <!-- Footer / About Section -->
+<footer class="w3-light-grey w3-padding-64 w3-center" id="about">
+    <h2>About</h2>
+    <img src="/w3images/boy.jpg" class="w3-image w3-padding-32" width="300" height="300">
+    <form style="margin:auto;width:60%" action="/action_page.php" target="_blank">
+      <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      {% if user.is_authenticated %}
+        <p class="w3-large w3-text-pink">Do not hesitate to contact me!</p>
+        <div class="w3-section">
+          <label><b>Name</b></label>
+          <input class="w3-input w3-border" type="text" required name="Name">
+        </div>
+        <div class="w3-section">
+          <label><b>Email</b></label>
+          <input class="w3-input w3-border" type="text" required name="Email">
+        </div>
+        <div class="w3-section">
+          <label><b>Message</b></label>
+          <input class="w3-input w3-border" required name="Message">
+        </div>
+        <button type="submit" class="w3-button w3-block w3-dark-grey">Send</button>
+      </form>
+      {% endif %}
+    <br>
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+    <p>Developed by <a href="https://github.com/RafaelMatos">Rafael</a> | <a href="https://github.com/RafaelMatos">Psycode</a></p>
+  </footer>
+
+    <script>
+        // Modal Image Gallery
+        function onClick(element) {
+          document.getElementById("img01").src = element.src;
+          document.getElementById("modal01").style.display = "block";
+          var captionText = document.getElementById("caption");
+          captionText.innerHTML = element.alt;
+        }
+        
+        
+        // Toggle between showing and hiding the sidebar when clicking the menu icon
+        var mySidebar = document.getElementById("mySidebar");
+        
+        function w3_open() {
+          if (mySidebar.style.display === 'block') {
+            mySidebar.style.display = 'none';
+          } else {
+            mySidebar.style.display = 'block';
+          }
+        }
+        
+        // Close the sidebar with the close button
+        function w3_close() {
+            mySidebar.style.display = "none";
+        }
+        </script>
+        <!-- JavaScript (Opcional) -->
+        <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+</body>
+</html>
